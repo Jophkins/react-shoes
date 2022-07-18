@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './Header.module.scss';
 
 const Header = () => {
   return (
-    <header>
+    <header className={styles.header}>
       <div className="headerLeftSide">
         <img width={80} height={60} src="https://i.ytimg.com/vi/l56I3fa7fts/hqdefault.jpg" alt="logo"/>
         <div className="headerInfo">

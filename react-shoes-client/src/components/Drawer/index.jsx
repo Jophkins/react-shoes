@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from './Drawer.module.scss';
 
 const Drawer = () => {
   return (
-    <div style={{display: 'none'}} className="overlay">
-      <div className="drawer">
+    <div style={{display: 'none'}} className={styles.overlay}>
+      <div className={styles.drawer}>
         <div className="cartTitle">
           <h2>Your Cart</h2>
           <img className="removeBtn" width={25}
