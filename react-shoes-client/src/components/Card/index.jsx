@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import styles from './Card.module.scss';
 
-const Card = ({name, price, imgUrl}) => {
+const Card = ({name, price, imgUrl, onPlus}) => {
 
-  const clickHandler = () => {
-    return console.log(name)
+  const [isAdded, setIsAdded] = useState(false);
+
+  const addHandler = () => {
+    setIsAdded(!isAdded);
+    onPlus({name, price, imgUrl});
   }
 
   return (
@@ -22,9 +25,7 @@ const Card = ({name, price, imgUrl}) => {
             <span>Price:</span>
             <b>{price}</b>
           </div>
-          <button onClick={clickHandler}>
-            +
-          </button>
+            <img onClick={addHandler} width={32} src={isAdded ? "https://cdn.icon-icons.com/icons2/1077/PNG/512/checked1_77964.png" : "https://cdn.icon-icons.com/icons2/1856/PNG/512/radio-button-unchecked_116724.png"} alt="checked"/>
         </div>
       </div>
   );

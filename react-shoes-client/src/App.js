@@ -1,41 +1,46 @@
 import Card from "./components/Card";
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
+import {useEffect, useState} from "react";
 
 function App() {
 
-  const sneakersArr = [
-    {
-      name: 'Chuck 70 Sherpa',
-      price: '64.99 usd.',
-      imgUrl: 'https://www.converse.com/dw/image/v2/AALW_PRD/on/demandware.static/-/Sites-ConverseMaster/default/dw736183f1/images/h_08/172005C_H_08X1.jpg?sw=406'
-    },
-    {
-      name: 'Chuck 70',
-      price: '60 usd.',
-      imgUrl: 'https://www.converse.com/dw/image/v2/AALW_PRD/on/demandware.static/-/Sites-ConverseMaster/default/dw8f80969d/images/j_08/164949C_J_08X1.jpg?sw=406'
-    },
-    {
-      name: 'Chuck 70 Tropical Leaf',
-      price: '49.99 usd.',
-      imgUrl: 'https://www.converse.com/dw/image/v2/AALW_PRD/on/demandware.static/-/Sites-ConverseMaster/default/dw29e7376e/images/l_08/A00482C_L_08X1.jpg?sw=406'
-    }
-  ]
+  const [items, setItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [cartOpened, setCartOpened] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
-  const sneakersArrReady = sneakersArr.map((item) => {
-    return <Card name={item.name} price={item.price} imgUrl={item.imgUrl} />
-  })
+  useEffect(() => {
+    fetch('https://62d66e3751e6e8f06f096028.mockapi.io/items')
+      .then((res) => {
+        return res.json();
+      }).then((json) => {
+        setItems(json);
+    });
+  }, []);
+
+  const onAddToCart = (item) => {
+    setCartItems(prev => [...prev, item]);
+  }
+
+  const sneakersArrReady = items.filter((item) => item.name.toLowerCase().includes(searchValue.toLowerCase())).map((item, index) => {
+    return <Card key={index} name={item.name} price={item.price} imgUrl={item.imgUrl} onPlus={onAddToCart} />
+  });
+
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value)
+  }
 
   return (
     <div className="wrapper clear">
-      <Drawer />
-      <Header />
+      {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)}/>}
+      <Header onClickCart={() => setCartOpened(true)} />
       <div className="content">
         <div className="contentTitle">
-          <h1>All shoes</h1>
+          <h1>{searchValue ? `Searching "${searchValue}"` : 'All shoes'}</h1>
           <div className="searchBlock">
             <span>0o</span>
-            <input type="text" placeholder="Search"/>
+            <input onChange={onChangeSearchInput} value={searchValue} type="text" placeholder="Search"/>
           </div>
         </div>
 

@@ -1,39 +1,30 @@
 import React from 'react';
 import styles from './Drawer.module.scss';
 
-const Drawer = () => {
+const Drawer = ({onClose, items = []}) => {
   return (
-    <div style={{display: 'none'}} className={styles.overlay}>
+    <div className={styles.overlay}>
       <div className={styles.drawer}>
         <div className="cartTitle">
           <h2>Your Cart</h2>
-          <img className="removeBtn" width={25}
+          <img onClick={onClose} className="removeBtn" width={25}
                src="https://i.pinimg.com/736x/8e/c0/18/8ec018b55a09b02667588e4fd916129f.jpg" alt=""/>
         </div>
 
         <div className="items">
-          <div className="cartItem">
-            <img width={70}
-                 src="https://www.converse.com/dw/image/v2/AALW_PRD/on/demandware.static/-/Sites-ConverseMaster/default/dwa3fd51db/images/a_08/A02080C_A_08X1.jpg?sw=406"
-                 alt=""/>
-            <div className="cartItemContent">
-              <p>Patchwork details and paisley prints bring standout style to the premium Chuck 70.</p>
-              <b>59 usd.</b>
+          {items.map((item) => (
+            <div className="cartItem">
+              <img width={70}
+                   src={item.imgUrl}
+                   alt=""/>
+              <div className="cartItemContent">
+                <p>{item.name}</p>
+                <b>{item.price} usd.</b>
+              </div>
+              <img className="removeBtn" width={25}
+                   src="https://i.pinimg.com/736x/8e/c0/18/8ec018b55a09b02667588e4fd916129f.jpg" alt=""/>
             </div>
-            <img className="removeBtn" width={25}
-                 src="https://i.pinimg.com/736x/8e/c0/18/8ec018b55a09b02667588e4fd916129f.jpg" alt=""/>
-          </div>
-          <div className="cartItem">
-            <img width={70}
-                 src="https://www.converse.com/dw/image/v2/AALW_PRD/on/demandware.static/-/Sites-ConverseMaster/default/dwa3fd51db/images/a_08/A02080C_A_08X1.jpg?sw=406"
-                 alt=""/>
-            <div className="cartItemContent">
-              <p>Patchwork details and paisley prints bring standout style to the premium Chuck 70.</p>
-              <b>59 usd.</b>
-            </div>
-            <img className="removeBtn" width={25}
-                 src="https://i.pinimg.com/736x/8e/c0/18/8ec018b55a09b02667588e4fd916129f.jpg" alt=""/>
-          </div>
+          ))}
         </div>
 
         <div className="cartTotalBlock">
