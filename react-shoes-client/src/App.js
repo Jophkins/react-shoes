@@ -1,4 +1,5 @@
 import Card from "./components/Card";
+import axios from "axios";
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
 import {useEffect, useState} from "react";
@@ -11,15 +12,16 @@ function App() {
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
-    fetch('https://62d66e3751e6e8f06f096028.mockapi.io/items')
-      .then((res) => {
-        return res.json();
-      }).then((json) => {
-        setItems(json);
+    axios.get('https://62d66e3751e6e8f06f096028.mockapi.io/items').then(res => {
+      setItems(res.data);
+    });
+    axios.get('https://62d66e3751e6e8f06f096028.mockapi.io/cart').then(res => {
+      setCartItems(res.data);
     });
   }, []);
 
   const onAddToCart = (item) => {
+    axios.post('https://62d66e3751e6e8f06f096028.mockapi.io/cart', item);
     setCartItems(prev => [...prev, item]);
   }
 
