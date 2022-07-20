@@ -2,19 +2,25 @@ import React, {useState} from 'react';
 
 import styles from './Card.module.scss';
 
-const Card = ({name, price, imgUrl, onPlus}) => {
+const Card = ({id, name, price, imgUrl, onPlus, onFavorite, favorited = false}) => {
 
   const [isAdded, setIsAdded] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(favorited);
 
   const addHandler = () => {
     setIsAdded(!isAdded);
     onPlus({name, price, imgUrl});
   }
 
+  const favoriteHandler = () => {
+    onFavorite({id, name, price, imgUrl});
+    setIsFavorite(!isFavorite);
+  }
+
   return (
       <div className={styles.card}>
-        <div className="favorite">
-          <img width={32} src="https://www.iconpacks.net/icons/2/free-heart-icon-3510-thumb.png" alt="unliked"/>
+        <div className={styles.favorite}>
+          <img onClick={favoriteHandler} width={32} src={isFavorite ? "https://www.iconpacks.net/icons/1/free-heart-icon-431-thumb.png" : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Ei-heart.svg/2048px-Ei-heart.svg.png"} alt="unliked"/>
         </div>
         <img width={240} height={240}
              src={imgUrl}

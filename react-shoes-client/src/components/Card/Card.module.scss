@@ -13,7 +13,10 @@
 
   .favorite {
     position: absolute;
-    cursor: pointer;
+
+    img {
+      cursor: pointer;
+    }
   }
 
   h5 {
@@ -25,7 +28,7 @@
 .cardBottom {
   display: flex;
   justify-content: space-between;
-  
+
   img {
     cursor: pointer;
   }

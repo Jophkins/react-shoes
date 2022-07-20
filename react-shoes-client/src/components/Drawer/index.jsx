@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Drawer.module.scss';
 
-const Drawer = ({onClose, items = []}) => {
+const Drawer = ({onClose, items = [], onRemove}) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.drawer}>
@@ -21,7 +21,7 @@ const Drawer = ({onClose, items = []}) => {
                 <p>{item.name}</p>
                 <b>{item.price} usd.</b>
               </div>
-              <img className="removeBtn" width={25}
+              <img onClick={() => onRemove(item.id)} className="removeBtn" width={25}
                    src="https://i.pinimg.com/736x/8e/c0/18/8ec018b55a09b02667588e4fd916129f.jpg" alt=""/>
             </div>
           ))}
