@@ -13,7 +13,7 @@ const Drawer = ({onClose, items = [], onRemove}) => {
 
         <div className="items">
           {items.map((item) => (
-            <div className="cartItem">
+            <div key={item.id} className="cartItem">
               <img width={70}
                    src={item.imgUrl}
                    alt=""/>

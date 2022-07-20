@@ -1,15 +1,30 @@
 import React from 'react';
 import Card from "../components/Card";
 
-const Home = ({items, searchValue, onAddToFavorite, onAddToCart, onChangeSearchInput}) => {
+const Home = ({
+                items,
+                searchValue,
+                onAddToFavorite,
+                onAddToCart,
+                onChangeSearchInput,
+                cartItems,
+                isLoading
+}) => {
 
-  const sneakersArrReady = items.filter((item) => item.name.toLowerCase().includes(searchValue.toLowerCase())).map((item, index) => {
-    return <Card key={index}
-                 onFavorite={(item) => onAddToFavorite(item)}
-                 onPlus={onAddToCart}
-                 {...item}
-    />
-  });
+  const renderItems = () => {
+    const filteredItems = items.filter((item) =>
+      item.name.toLowerCase().includes(searchValue.toLowerCase()));
+    return (isLoading ? [...Array(10)] : filteredItems).map((item, index) => (
+       <Card key={index}
+                   onFavorite={(obj) => onAddToFavorite(obj)}
+                   onPlus={(obj) => onAddToCart(obj)}
+                   added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
+                   loading={isLoading}
+                   {...item}
+      />
+    ))
+  }
+
   return (
     <div className="content">
       <div className="contentTitle">
@@ -21,7 +36,7 @@ const Home = ({items, searchValue, onAddToFavorite, onAddToCart, onChangeSearchI
       </div>
 
       <div className="sneakers">
-        {sneakersArrReady}
+        {renderItems()}
       </div>
 
     </div>
