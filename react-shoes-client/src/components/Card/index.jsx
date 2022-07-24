@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import ContentLoader from "react-content-loader";
 
 import styles from './Card.module.scss';
+import AppContext from "../../context";
 
 const Card = ({
                 id,
@@ -14,12 +15,10 @@ const Card = ({
                 added = false,
                 loading = false
 }) => {
-
-  const [isAdded, setIsAdded] = useState(added);
+  const { isItemAdded } = useContext(AppContext);
   const [isFavorite, setIsFavorite] = useState(favorited);
 
   const addHandler = () => {
-    setIsAdded(!isAdded);
     onPlus({id, name, price, imgUrl});
   }
 
@@ -53,7 +52,7 @@ const Card = ({
                 <span>Price:</span>
                 <b>{price}</b>
               </div>
-              <img onClick={addHandler} width={32} src={isAdded ? "https://cdn.icon-icons.com/icons2/1077/PNG/512/checked1_77964.png" : "https://cdn.icon-icons.com/icons2/1856/PNG/512/radio-button-unchecked_116724.png"} alt="checked"/>
+              <img onClick={addHandler} width={32} src={isItemAdded(id) ? "https://cdn.icon-icons.com/icons2/1077/PNG/512/checked1_77964.png" : "https://cdn.icon-icons.com/icons2/1856/PNG/512/radio-button-unchecked_116724.png"} alt="checked"/>
             </div>
           </>
         }

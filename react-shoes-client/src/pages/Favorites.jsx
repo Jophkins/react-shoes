@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Card from "../components/Card";
+import AppContext from "../context";
 
-const Favorites = ({items, onAddToFavorite}) => {
+const Favorites = () => {
+  const {favorites, onAddToFavorite} = useContext(AppContext);
 
-  const favoritesSneakersArrReady = items.map((item, index) => {
+  const favoritesSneakersArrReady = favorites.map((item, index) => {
     return <Card key={index}
                  favorited={true}
                  onFavorite={onAddToFavorite}
