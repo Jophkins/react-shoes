@@ -1,8 +1,12 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import styles from './Header.module.scss';
+import {useCart} from "../../hooks/useCart";
 
 const Header = ({onClickCart}) => {
+
+const {totalPrice} = useCart();
+
   return (
     <header className={styles.header}>
       <NavLink to="/">
@@ -19,7 +23,7 @@ const Header = ({onClickCart}) => {
           <img className="cartIcon" width={40} height={40}
                src="https://s3-us-west-1.amazonaws.com/sweeper-production-merchantimage/dp_5d3ef58f83889769800f158b.jpg"
                alt=""/>
-          <span>1250 uah.</span>
+          <span>{totalPrice} uah.</span>
         </li>
         <li>
           <NavLink to="/favorites">

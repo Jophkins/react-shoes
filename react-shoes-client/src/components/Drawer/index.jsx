@@ -1,14 +1,14 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './Drawer.module.scss';
 import Info from "../Info";
-import AppContext from "../../context";
 import axios from "axios";
+import {useCart} from "../../hooks/useCart";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Drawer = ({onClose, items = [], onRemove}) => {
 
-  const {cartItems, setCartItems} = useContext(AppContext);
+  const { cartItems, setCartItems, totalPrice } = useCart();
   const [orderId, setOrderId] = useState(null);
   const [isOrderComplete, setIsOrderComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -66,12 +66,12 @@ const Drawer = ({onClose, items = [], onRemove}) => {
                 <li>
                   <span>Total:</span>
                   <div/>
-                  <b>118 usd.</b>
+                  <b>{totalPrice} uah.</b>
                 </li>
                 <li>
                   <span>Tax 5%:</span>
                   <div/>
-                  <b>12 usd.</b>
+                  <b>{(totalPrice / 100 * 5).toFixed(2)} uah.</b>
                 </li>
               </ul>
               <button disabled={isLoading} onClick={onClickOrder}>Submit your order</button>
