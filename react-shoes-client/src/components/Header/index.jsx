@@ -5,7 +5,7 @@ import {useCart} from "../../hooks/useCart";
 
 const Header = ({onClickCart}) => {
 
-const {totalPrice} = useCart();
+  const {totalPrice} = useCart();
 
   return (
     <header className={styles.header}>
@@ -33,7 +33,9 @@ const {totalPrice} = useCart();
           </NavLink>
         </li>
         <li>
-          <img src="http://www.cherkasyoblenergo.com/uploads/posts/2018-02/1519657152_img_508630.png" alt="profile"/>
+          <NavLink to="/orders">
+            <img src="http://www.cherkasyoblenergo.com/uploads/posts/2018-02/1519657152_img_508630.png" alt="profile"/>
+          </NavLink>
         </li>
       </ul>
     </header>

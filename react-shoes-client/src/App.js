@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import {useEffect, useState} from "react";
 import Favorites from "./pages/Favorites";
 import AppContext from "./context";
+import Orders from "./pages/Orders";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -77,7 +78,16 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToFavorite, setCartOpened, setCartItems}}>
+      <AppContext.Provider value={{
+        items,
+        cartItems,
+        favorites,
+        isItemAdded,
+        onAddToFavorite,
+        onAddToCart,
+        setCartOpened,
+        setCartItems
+      }}>
         <div className="wrapper clear">
           {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem}/>}
           <Header onClickCart={() => setCartOpened(true)}/>
@@ -94,6 +104,7 @@ function App() {
                     isLoading={isLoading}
               />}/>
             <Route path="/favorites" element={<Favorites />}/>
+            <Route path="/orders" element={<Orders />} />
           </Routes>
 
         </div>
